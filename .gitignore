@@ -1,11 +1,16 @@
 # Visual Studio 2015 user specific files
 .vs/
+.idea/
 
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+
+# Debug symbols
+*.pdb
+
 
 # Precompiled Headers
 *.gch
@@ -14,7 +19,6 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod
@@ -46,7 +50,6 @@ SourceArt/**/*.png
 SourceArt/**/*.tga
 
 # Binary Files
-Binaries/*
 Plugins/**/Binaries/*
 
 # Builds
@@ -72,3 +75,11 @@ Plugins/**/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+
+# RiderLink
+Plugins/Developer/*
+
+PackagedBuilds/
+ArchievedBuilds/
+.vsconfig
