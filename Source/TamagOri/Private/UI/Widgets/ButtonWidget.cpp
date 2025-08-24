@@ -6,8 +6,13 @@
 void UButtonWidget::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-	Button->SetBackgroundColor(ButtonColor);
-	ButtonText->SetText(InternalText);
+
+	if (Button)
+	{
+		Button->SetBackgroundColor(ButtonColor);
+		ButtonText->SetText(InternalText);
+	}
+	
 }
 
 void UButtonWidget::NativeConstruct()

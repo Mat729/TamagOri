@@ -4,8 +4,11 @@
 #include "Blueprint/UserWidget.h"
 #include "ProgressBarWidget.generated.h"
 
+enum class EOriStates : uint8;
 class UButtonWidget;
 class UProgressBar;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnStateChanged, EOriStates, OriState);
 
 UCLASS()
 class TAMAGORI_API UProgressBarWidget : public UUserWidget
@@ -26,13 +29,17 @@ private:
 	FLinearColor BarColor = FLinearColor::White;
 
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
-	float DecreseBarRate = 3.f;
+	float DecreseBarRate = 5.f;
 
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	float ValueToAddOnButtonClick = 20.f;
 	
 	float CurrentBarPercent = 0.f;
+
+	float PercentRoundedToFloat = 0.f;
+	float NormalizedBarPercent = 0.f;
 	
+	UPROPERTY(VisibleInstanceOnly, meta = (AllowPrivateAccess = true))
 	float BarMaxPercent = 100.f;
 //--- ProgressBar Personalization End ---//
 
@@ -43,15 +50,35 @@ private:
 	
 //--- ProgressBar State Trigger functions Start ---//
 	void DecreaseBarWithTime(float InDeltaTime);
-
-	void NormalizeBarPercent(float InCurrentBarPercent);
+	void NormalizeAndRoundPercent(float InCurrentBarPercent);
+	void OriGrowth(float InDeltaTime);
 //--- ProgressBar State Trigger functions End ---//
 
+//--- State trigger Utility Start ---//
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	EOriStates OriStateToTrigger;
+
+	float TimePassed = 0;
+	
+	bool bHasTriggeredChange = false;
+
+	bool bIsOriGrwon = false;
+
+	bool bCanTick = true;
+//--- State trigger Utility End ---//
 
 //--- Button for binding Delegate ---//
-	UPROPERTY()
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UButtonWidget> ButtonWidget;
+
+public:
+	FOnStateChanged OnStateChanged;
+
+	void StopTicking(); 
 };
+
+
+
 
 
 

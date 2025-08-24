@@ -27,7 +27,7 @@ class TAMAGORI_API UTamagOriPage : public UUserWidget
 
 protected:
 	virtual void NativePreConstruct() override;
-	
+	virtual void NativeConstruct() override;
 
 private:
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
@@ -61,9 +61,9 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> HungryTexture = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
-	TObjectPtr<UTexture2D> ThirstTexture = nullptr;
+	TObjectPtr<UTexture2D> ThirstyTexture = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
-	TObjectPtr<UTexture2D> PoopTexture = nullptr;
+	TObjectPtr<UTexture2D> PoopyTexture = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> YoungTexture = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
@@ -76,5 +76,16 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	EOriStates OriCurrentState = EOriStates::Young;
 //--- State Setup End ---//
-	
+
+	UFUNCTION()
+	void ChangeState(EOriStates OriState);
+
+	void YoungState();
+	void AdultState();
+	void HungryState();
+	void ThirstState();
+	void PoopyState();
+	void DeadState();
+
+	void SetImage(UTexture2D* OriTexture);
 };
