@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "TamagOriPage.generated.h"
 
+class UOriDeathWidget;
 class UImage;
 class UTextBlock;
 class UButtonWidget;
@@ -49,11 +50,13 @@ private:
 	TObjectPtr<UButtonWidget> PoopButton = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
-	TObjectPtr<UTextBlock> OriStateText = nullptr;
+	TObjectPtr<UTextBlock> OriStateTextBlock = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
 	TObjectPtr<UImage> OriImage = nullptr;
 
+	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
+	TObjectPtr<UOriDeathWidget> OriDeathWidget = nullptr;
 //--- Personalization ---//
 
 	

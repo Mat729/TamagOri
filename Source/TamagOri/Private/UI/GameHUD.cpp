@@ -7,6 +7,12 @@ void AGameHUD::BeginPlay()
 {
 	Super::BeginPlay();
 	CreateWidgetAndAddToViewport();
+	APlayerController* PC = GetOwningPlayerController();
+	ensureMsgf(IsValid(PC),TEXT("PlayerController is not valid"));
+	if (!IsValid(PC)) {return;}
+	PC->SetInputMode(FInputModeUIOnly());
+	PC->SetShowMouseCursor(true);
+	
 }
 
 void AGameHUD::CreateWidgetAndAddToViewport()

@@ -41,9 +41,10 @@ void UProgressBarWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UProgressBarWidget::OriGrowth(float InDeltaTime)
 {
 	TimePassed +=InDeltaTime ;
-	if (TimePassed > 3.0)
+	if (TimePassed > 5.0 && !bIsOriGrwon)
 	{
-		OnStateChanged.Broadcast(EOriStates::Adult);
+		OnStateChangedDelegate.Broadcast(EOriStates::Adult);
+		bIsOriGrwon = true;
 	}
 }
 
@@ -51,14 +52,25 @@ void UProgressBarWidget::DecreaseBarWithTime(float InDeltaTime)
 {
 	CurrentBarPercent -= DecreseBarRate * InDeltaTime;
 	NormalizeAndRoundPercent(CurrentBarPercent);
-	UE_LOG(LogTemp, Warning, TEXT("Bar percentage: %f"),PercentRoundedToFloat);
 
-	if (NormalizedBarPercent >= .4f && bHasTriggeredChange)
+	if (NormalizedBarPercent < .4f && !bHasTriggeredChange)
 	{
-		OnStateChanged.Broadcast(EOriStates::Adult);
+		UE_LOG(LogTemp, Warning, TEXT("Broadcasting state: %d"), (int32)OriStateToTrigger);
+		OnStateChangedDelegate.Broadcast(OriStateToTrigger);
+		UE_LOG(LogTemp, Warning, TEXT("Finished broadcast"));
+		bHasTriggeredChange = true;
+	}
+	if (PercentRoundedToFloat >= .4f && bHasTriggeredChange)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Triggered returned back"));
+		OnStateChangedDelegate.Broadcast(EOriStates::Adult);
 		bHasTriggeredChange = false;
 	}
-	
+	if (NormalizedBarPercent <= KINDA_SMALL_NUMBER)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Triggered death"));
+		OnStateChangedDelegate.Broadcast(EOriStates::Dead);
+	}
 	
 }
 
@@ -68,16 +80,6 @@ void UProgressBarWidget::NormalizeAndRoundPercent(float InCurrentBarPercent)
 	ensureMsgf(ProgressBar, TEXT("Progress bar not referenced"));
 	if (!IsValid(ProgressBar)){return;}
 	ProgressBar->SetPercent(NormalizedBarPercent);
-	if (NormalizedBarPercent < .4f && !bHasTriggeredChange)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Triggered"));
-		OnStateChanged.Broadcast(OriStateToTrigger);
-		bHasTriggeredChange = true;
-	}
-	if (NormalizedBarPercent == 0.f)
-	{
-		OnStateChanged.Broadcast(EOriStates::Dead);
-	}
 	PercentRoundedToFloat= FMath::RoundToFloat(NormalizedBarPercent *10.f)/ 10.f;
 }
 

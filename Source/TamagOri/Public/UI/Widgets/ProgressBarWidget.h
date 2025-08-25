@@ -55,7 +55,7 @@ private:
 //--- ProgressBar State Trigger functions End ---//
 
 //--- State trigger Utility Start ---//
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	EOriStates OriStateToTrigger;
 
 	float TimePassed = 0;
@@ -72,7 +72,8 @@ private:
 	TObjectPtr<UButtonWidget> ButtonWidget;
 
 public:
-	FOnStateChanged OnStateChanged;
+	UPROPERTY()
+	FOnStateChanged OnStateChangedDelegate;
 
 	void StopTicking(); 
 };
