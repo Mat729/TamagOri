@@ -7,7 +7,8 @@
 void UProgressBarWidget::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-	
+
+	ensureMsgf(IsValid(ProgressBar), TEXT("ProgressBar widget not binded"));
 	if(IsValid(ProgressBar))
 	{
 		CurrentBarPercent = BarMaxPercent;

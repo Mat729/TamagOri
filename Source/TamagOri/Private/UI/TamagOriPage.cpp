@@ -9,7 +9,11 @@
 void UTamagOriPage::NativePreConstruct()
 {
 	Super::NativePreConstruct();
+	
 	ChangeState(EOriStates::Young);
+
+	ensureMsgf(OriDeathWidget,TEXT("OriDeath widget not binded"));
+	if (!IsValid(OriDeathWidget)){return;}
 	OriDeathWidget->SetVisibility(ESlateVisibility::Collapsed);
 }
 
@@ -60,45 +64,83 @@ void UTamagOriPage::ChangeState(EOriStates OriState)
 
 void UTamagOriPage::YoungState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori is a puppy"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori is a puppy"));
+	}
 	SetImage(YoungTexture);
 }
 
 void UTamagOriPage::AdultState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori has grown up"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori has grown up"));
+	}
 	SetImage(AdultTexture);
 }
 
 void UTamagOriPage::HungryState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori wants to be fed!"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori wants to be fed!"));
+	}
 	SetImage(HungryTexture);
 }
 
 void UTamagOriPage::ThirstState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori wants to drink!"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori wants to drink!"));
+	}
 	SetImage(ThirstyTexture);
 }
 
 void UTamagOriPage::PoopyState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori needs to poop!"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori needs to poop!"));
+	}
 	SetImage(PoopyTexture);
 }
 
 void UTamagOriPage::DeadState()
 {
-	OriStateTextBlock->SetText(FText::FromString("Ori is dead!"));
+	ensureMsgf(IsValid(OriStateTextBlock), TEXT("OriStateTextBlock widget not binded"));
+	if (IsValid(OriStateTextBlock))
+	{
+		OriStateTextBlock->SetText(FText::FromString("Ori is dead!"));
+	}
 	SetImage(DeadTexture);
-	HungerBar->StopTicking();
-	ThirstBar->StopTicking();
-	PoopBar->StopTicking();
-	HungerButton->SetIsEnabled(false);
-	ThirstButton->SetIsEnabled(false);
-	PoopButton->SetIsEnabled(false);
-	OriDeathWidget->SetVisibility(ESlateVisibility::Visible);
+	
+	ensureMsgf(HungerBar,TEXT("HungerBar widget not binded"));
+	if (IsValid(HungerBar)){HungerBar->StopTicking();}
+	
+	ensureMsgf(ThirstBar,TEXT("ThirstBar widget not binded"));
+	if (IsValid(ThirstBar)){ThirstBar->StopTicking();}
+	
+	ensureMsgf(PoopBar,TEXT("PoopBar widget not binded"));
+	if (IsValid(PoopBar)){PoopBar->StopTicking();}
+	
+	ensureMsgf(HungerButton,TEXT("HungerButton widget not binded"));
+	if (IsValid(HungerButton)){HungerButton->SetIsEnabled(false);}
+	
+	ensureMsgf(ThirstButton,TEXT("HungerButton widget not binded"));
+	if (IsValid(ThirstButton)){ThirstButton->SetIsEnabled(false);}
+
+	ensureMsgf(PoopButton,TEXT("HungerButton widget not binded"));
+	if (IsValid(PoopButton)){PoopButton->SetIsEnabled(false);}
+	
+	ensureMsgf(OriDeathWidget,TEXT("HungerButton widget not binded"));
+	if (IsValid(OriDeathWidget)){OriDeathWidget->SetVisibility(ESlateVisibility::Visible);}
 }
 
 void UTamagOriPage::SetImage(UTexture2D* OriTexture)

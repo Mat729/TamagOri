@@ -12,10 +12,11 @@ class TAMAGORI_API AGameHUD : public AHUD
 	GENERATED_BODY()
 
 protected:
+	
 	virtual void BeginPlay() override;
 	
-
 private:
+//--- Tamagotchi page creation start ---//
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UTamagOriPage> TamagOriPage = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
@@ -23,4 +24,5 @@ private:
 
 	UFUNCTION()
 	void CreateWidgetAndAddToViewport();
+//--- Tamagotchi page creation end ---//
 };

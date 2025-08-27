@@ -7,7 +7,8 @@ void UButtonWidget::NativePreConstruct()
 {
 	Super::NativePreConstruct();
 
-	if (Button)
+	ensureMsgf(IsValid(Button), TEXT("Button widget not binded"));
+	if (IsValid(Button))
 	{
 		Button->SetBackgroundColor(ButtonColor);
 		ButtonText->SetText(InternalText);
@@ -19,6 +20,8 @@ void UButtonWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
+	ensureMsgf(IsValid(Button), TEXT("Button widget not binded"));
+	if (!IsValid(Button)){return;}
 	Button->OnClicked.AddDynamic(this, &UButtonWidget::OnClick);
 }
 

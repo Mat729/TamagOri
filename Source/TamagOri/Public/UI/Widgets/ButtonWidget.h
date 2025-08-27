@@ -20,13 +20,15 @@ protected:
 	
 private:
 	
-//--- Button Personalization Start ---//
+//--- Button bindings Start ---//
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UButton> Button = nullptr;
 
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UTextBlock> ButtonText = nullptr;
+//--- Button bindings End ---//
 
+//--- Button Personalization Start ---//
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	FText InternalText;
 
@@ -39,7 +41,5 @@ private:
 	void OnClick();
 	
 public:
-	
-	
 	FOnButtonClicked OnButtonClickedDelegate;
 };

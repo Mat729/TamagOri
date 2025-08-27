@@ -25,56 +25,56 @@ private:
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
 	TObjectPtr<UProgressBar> ProgressBar = nullptr;
 
-	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (AllowPrivateAccess = true))
 	FLinearColor BarColor = FLinearColor::White;
 
-	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (AllowPrivateAccess = true))
 	float DecreseBarRate = 5.f;
 
-	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (BindWidget, AllowPrivateAccess = true))
+	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (AllowPrivateAccess = true))
 	float ValueToAddOnButtonClick = 20.f;
-	
-	float CurrentBarPercent = 0.f;
 
-	float PercentRoundedToFloat = 0.f;
-	float NormalizedBarPercent = 0.f;
-	
-	UPROPERTY(VisibleInstanceOnly, meta = (AllowPrivateAccess = true))
+	UPROPERTY(EditDefaultsOnly, meta = (AllowPrivateAccess = true))
 	float BarMaxPercent = 100.f;
 //--- ProgressBar Personalization End ---//
+	
+//--- logic implementation variables start ---//
+	float CurrentBarPercent = 0.f;
+	float PercentRoundedToFloat = 0.f;
+	float NormalizedBarPercent = 0.f;
+	float TimePassed = 0;
+	bool bHasTriggeredChange = false;
+	bool bIsOriGrwon = false;
+	bool bCanTick = true;
+//--- logic implementation variables start ---//
 
 //--- ProgressBar utility functions Start ---//
 	UFUNCTION()
 	void IncreaseBarPercent();
 //--- ProgressBar utility functions End ---//
 	
-//--- ProgressBar State Trigger functions Start ---//
+//--- ProgressBar State change Trigger functions Start ---//
 	void DecreaseBarWithTime(float InDeltaTime);
 	void NormalizeAndRoundPercent(float InCurrentBarPercent);
 	void OriGrowth(float InDeltaTime);
-//--- ProgressBar State Trigger functions End ---//
+//--- ProgressBar State change Trigger functions End ---//
 
-//--- State trigger Utility Start ---//
+//--- State to trigger enum Start ---//
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	EOriStates OriStateToTrigger;
+//--- State to trigger enum End ---//
 
-	float TimePassed = 0;
-	
-	bool bHasTriggeredChange = false;
-
-	bool bIsOriGrwon = false;
-
-	bool bCanTick = true;
-//--- State trigger Utility End ---//
-
-//--- Button for binding Delegate ---//
+//--- Button for binding Delegate start ---//
 	UPROPERTY(BlueprintReadWrite, EditInstanceOnly, meta = (AllowPrivateAccess = true))
 	TObjectPtr<UButtonWidget> ButtonWidget;
+//--- Button for binding Delegate end ---//
 
 public:
+
 	UPROPERTY()
 	FOnStateChanged OnStateChangedDelegate;
 
+//--- function to stop tick at death ---//
 	void StopTicking(); 
 };
 

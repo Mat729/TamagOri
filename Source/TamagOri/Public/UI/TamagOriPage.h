@@ -13,12 +13,12 @@ class UProgressBarWidget;
 UENUM (BlueprintType)
 enum class EOriStates : uint8
 {
-	Hungry UMETA(DisplayName = "Hungry"),
+	Hungry  UMETA(DisplayName = "Hungry"),
 	Thirsty UMETA(DisplayName = "Thirsty"),
-	Poopy UMETA(DisplayName = "Poopy"),
-	Young UMETA(DisplayName = "Young"),
-	Adult UMETA(Displayname = "Adult"),
-	Dead UMETA(DisplayName = "Dead")
+	Poopy   UMETA(DisplayName = "Poopy"),
+	Young   UMETA(DisplayName = "Young"),
+	Adult   UMETA(Displayname = "Adult"),
+	Dead    UMETA(DisplayName = "Dead")
 };
 
 UCLASS()
@@ -31,6 +31,7 @@ protected:
 	virtual void NativeConstruct() override;
 
 private:
+//--- Widgets binding start ---//
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
 	TObjectPtr<UProgressBarWidget> HungerBar = nullptr;
 
@@ -57,29 +58,30 @@ private:
 
 	UPROPERTY(BlueprintReadWrite, meta=(BindWidget, AllowPrivateAccess = true), Category = "TamagOri | Personalization")
 	TObjectPtr<UOriDeathWidget> OriDeathWidget = nullptr;
-//--- Personalization ---//
+//--- Widgets binding end ---//
 
 	
 //--- State Images Setup start ---//
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> HungryTexture = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> ThirstyTexture = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> PoopyTexture = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> YoungTexture = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> AdultTexture = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	TObjectPtr<UTexture2D> DeadTexture = nullptr;
 //--- State Images Setup end ---//
 	
-//--- State Setup Start ---//
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
+//--- State default Setup Start ---//
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta=(AllowPrivateAccess = true), Category = "TamagOri | State Setup")
 	EOriStates OriCurrentState = EOriStates::Young;
-//--- State Setup End ---//
+//--- State default Setup End ---//
 
+//--- State management and events functions start ---//
 	UFUNCTION()
 	void ChangeState(EOriStates OriState);
 
@@ -91,4 +93,5 @@ private:
 	void DeadState();
 
 	void SetImage(UTexture2D* OriTexture);
+//--- State management and events functions start ---//
 };

@@ -6,6 +6,7 @@
 void UOriDeathWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+	
 	ensureMsgf(IsValid(RetryButton) && IsValid(QuitButton),TEXT("Delegates not binded properly"));
 	if (!IsValid(RetryButton) || !IsValid(QuitButton)){return;}
 	RetryButton->OnButtonClickedDelegate.AddDynamic(this, &UOriDeathWidget::OnClickRetry);
