@@ -52,6 +52,8 @@ void UProgressBarWidget::OriGrowth(float InDeltaTime)
 void UProgressBarWidget::DecreaseBarWithTime(float InDeltaTime)
 {
 	CurrentBarPercent -= DecreseBarRate * InDeltaTime;
+	//clamping the value to make impossible having a CurrentBarPercentage bigger than BarMaxPercent
+	CurrentBarPercent = FMath::Clamp(CurrentBarPercent, 0.0, BarMaxPercent);
 	NormalizeAndRoundPercent(CurrentBarPercent);
 
 	if (NormalizedBarPercent < .4f && !bHasTriggeredChange)
