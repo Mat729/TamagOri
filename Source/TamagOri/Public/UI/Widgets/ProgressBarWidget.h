@@ -44,7 +44,7 @@ private:
 	float NormalizedBarPercent = 0.f;
 	float TimePassed = 0;
 	bool bHasTriggeredChange = false;
-	bool bIsOriGrwon = false;
+	bool bIsOriGrown = false;
 	bool bCanTick = true;
 //--- logic implementation variables start ---//
 

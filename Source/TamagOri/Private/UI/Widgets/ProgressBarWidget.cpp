@@ -42,10 +42,10 @@ void UProgressBarWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UProgressBarWidget::OriGrowth(float InDeltaTime)
 {
 	TimePassed +=InDeltaTime ;
-	if (TimePassed > 5.0 && !bIsOriGrwon)
+	if (TimePassed > 5.0 && !bIsOriGrown)
 	{
 		OnStateChangedDelegate.Broadcast(EOriStates::Adult);
-		bIsOriGrwon = true;
+		bIsOriGrown = true;
 	}
 }
 
